@@ -1,0 +1,73 @@
+Fachabteilung fab1 - fab100 gg  KH Typ Gem 3, mit tage_fa1 bis 100
+proc freq data=your_dataset;
+   tables fa1-fa100 / nocum nopercent;
+run;
+
+proc sort data=your_dataset;
+   by kh_typ_gem3;
+run;
+
+proc freq data=your_dataset;
+   by kh_typ_gem3;
+   tables fa1-fa100 / nocum nopercent;
+run;
+
+
+
+proc means data=your_dataset mean;
+   var tage_fa1-tage_fa100;
+   output out=AvgTage (drop=_TYPE_ _FREQ_) mean=;
+run;
+
+proc sort data=AvgTage descending;
+   by _numeric_;
+run;
+
+proc print data=AvgTage;
+run;
+
+proc sort data=your_dataset;
+   by kh_typ_gem3;
+run;
+
+proc means data=your_dataset mean;
+   by kh_typ_gem3;
+   var tage_fa1-tage_fa100;
+   output out=AvgTage (drop=_TYPE_ _FREQ_) mean=;
+run;
+
+proc sort data=AvgTage;
+   by kh_typ_gem3 descending;
+run;
+
+proc print data=AvgTage;
+run;
+
+
+
+
+
+
+fab_max (singulär pivot)
+
+proc freq data=your_dataset;
+   tables fab_max / nocum nopercent;
+run;
+
+
+
+
+DRG nach Jahr gerade nur nach BL, höhere Ebene ansetzen
+
+
+proc freq data=your_dataset;
+   tables drgh / out=FreqCount order=freq;
+run;
+
+proc print data=FreqCount (obs=10);
+   var drgh Count;
+run;
+
+
+
+
