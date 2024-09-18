@@ -1,0 +1,21 @@
+/* Count the number of wrong year values, aggregating Jan-Nov and counting Dec separately */
+proc sql;
+    create table wrong_year_summary as
+    select expected_year, 
+           case 
+               when auf_monat in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) then 'Jan-Nov'
+               when auf_monat = 12 then 'Dec'
+           end as month_group,
+           count(*) as wrong_year_cases
+    from work.&dataset_name
+    where wrong_year_flag = 1
+    group by expected_year, month_group
+    order by expected_year, month_group;
+quit;
+
+/* Display the aggregated wrong year counts */
+title "Aggregated Wrong Year Counts";
+proc print data=wrong_year_summary;
+    var expected_year month_group wrong_year_cases;
+run;
+title;
