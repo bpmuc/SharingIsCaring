@@ -1,0 +1,14 @@
+Zeit: Gesamt/ Jahren/Pandemiezeiträume
+-	Nach BL (BY, NRW, SH+HH, Berlin+Brandenburg) -> Zahl Fälle KH-Reg-Typ, Entwicklung über Zeit, Zahlen OP Ja Nein über Zeit, Beatmungszeiten 
+    kh_land -> kh_typ_gem3 , typ_op, Beatmung
+-	Patienten Regionstyp Gesamt/ Jahren/Pandemiezeiträume -> pat_typ_gem3 
+
+-	Tabelle für jedes Feld ein Output? Datenfreigabe? Ungerader Schnitt zu vorherigen Daten (halbes Jahr rausnehmen)
+- 23 zu nach Pandemie
+-	Pivot DRG-Codes
+
+
+
+Welche Tabellen Sachen rausgeixt? 
+Beteiligte Fachabteilungen? Pivot, welche Abteilung hat die längste Liegedauer? Ist das HNO versorgt oder Augen oder Kinderärztlich? fab1 - fab100  
+Altersverteilung anschauen
