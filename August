@@ -32,3 +32,9 @@ proc sql;
 quit;
 
 
+
+Gruppieren Fallzahlen:
+Nord: HH, SH
+Süd: BY
+West: NRW
+Ost: BER, BRA
