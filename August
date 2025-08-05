@@ -56,3 +56,70 @@ Ost: BER, BRA   ==== 11, 12
 14 = Sachsen
 15 = Sachsen-Anhalt
 16 = Thüringen
+
+
+
+
+
+
+data work.&dataset_name;
+    set work.&dataset_name;
+
+    length region_group $10;
+
+    /* Assign region based on kh_land */
+    if kh_land in ('01', '02') then region_group = 'Nord';
+    else if kh_land = '05' then region_group = 'West';
+    else if kh_land = '09' then region_group = 'Süd';
+    else if kh_land in ('11', '12') then region_group = 'Ost';
+    else region_group = 'Rest';  /* All other Bundesländer */
+
+run;
+
+
+
+title "Number of Cases per Region Group";
+proc sql;
+    select region_group, count(*) as Number_of_Cases
+    from work.&dataset_name
+    group by region_group
+    order by region_group;
+quit;
+
+
+title "Number of Cases per Region and Pandemic Phase";
+proc sql;
+    select period, region_group, count(*) as Number_of_Cases
+    from work.&dataset_name
+    group by period, region_group
+    order by period, region_group;
+quit;
+
+
+
+Numeric grouping if neccessary:
+data work.&dataset_name;
+    set work.&dataset_name;
+
+    /* Convert kh_land to numeric if it’s character */
+    kh_land_num = input(kh_land, 2.);  /* Creates a numeric version */
+
+run;
+data work.&dataset_name;
+    set work.&dataset_name;
+
+    length region_group $10;
+
+    if kh_land_num in (1, 2) then region_group = 'Nord';
+    else if kh_land_num = 5 then region_group = 'West';
+    else if kh_land_num = 9 then region_group = 'Süd';
+    else if kh_land_num in (11, 12) then region_group = 'Ost';
+    else region_group = 'Rest';
+run;
+title "Number of Cases per Region Group";
+proc sql;
+    select region_group, count(*) as Number_of_Cases
+    from work.&dataset_name
+    group by region_group
+    order by region_group;
+quit;
